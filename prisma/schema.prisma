@@ -1,4 +1,4 @@
-// Calorie & Macro Tracker — Prisma schema (SQLite)
+// Lean Tracker (calories & macros) — Prisma schema (SQLite)
 //
 // Date convention: every `date` column stores a *calendar day* as UTC midnight
 // (e.g. 2026-10-29T00:00:00.000Z). The client sends its local "YYYY-MM-DD" and

@@ -18,9 +18,9 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Macro Tracker", template: "%s · Macro Tracker" },
+  title: { default: "Lean Tracker", template: "%s · Lean Tracker" },
   description: "Track calories, macros and weight on your weight loss journey.",
-  appleWebApp: { capable: true, title: "Macros", statusBarStyle: "default" },
+  appleWebApp: { capable: true, title: "Lean", statusBarStyle: "default" },
 };
 
 export const viewport: Viewport = {

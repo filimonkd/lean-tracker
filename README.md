@@ -1,4 +1,4 @@
-# Macro Tracker
+# Lean Tracker
 
 A mobile-first calorie and macro tracker for a weight loss journey. It calculates a daily target from your profile, logs meals against it, and charts weight and intake over time.
 
