@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
+  // Dev-only bubble: every corner overlaps the avatar, theme toggle or tab bar.
+  devIndicators: false,
   partialPrefetching: true,
   turbopack: {
     rules: {

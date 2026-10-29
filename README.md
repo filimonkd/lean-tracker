@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Macro Tracker
 
-## Getting Started
+A mobile-first calorie and macro tracker for a weight loss journey. It calculates a daily target from your profile, logs meals against it, and charts weight and intake over time.
 
-First, run the development server:
+## Features
+
+- **Onboarding & plan**: Mifflin-St Jeor BMR × activity level (TDEE), minus a 500 kcal deficit (never below 1,500 kcal for men / 1,200 kcal for women). Macros: protein from goal weight, 25% fat, carbs for the rest. Targets can be overridden by hand.
+- **Today**: a segmented calorie ring (one arc per meal), remaining calories, macro bars and meal cards. Switch between today and yesterday.
+- **Log food**: search 30 seeded foods plus your own, add with a servings stepper, and delete entries. Custom foods can be created, edited and deleted; anything already logged keeps its original values.
+- **Progress**: log daily weigh-ins, a weight trend chart (week / month / 3 / 6 months) and a 7-day calories-vs-goal chart, each with a table view.
+- **Dark mode**: light, dark or auto, applied before first paint.
+
+## Tech stack
+
+Next.js 16 (App Router, Server Actions, Cache Components) · TypeScript · Prisma 6 + SQLite · Tailwind CSS 4 · Recharts · Lucide icons
+
+## Getting started
+
+Requires Node.js 20.9+.
 
 ```bash
+npm install
+cp .env.example .env
+npm run db:migrate   # creates prisma/dev.db and seeds the default foods
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000. The first visit takes you through onboarding.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` / `npm start` | Production build / serve it |
+| `npm run lint` | ESLint |
+| `npm run db:migrate` | Apply schema migrations (and seed on first run) |
+| `npm run db:seed` | Re-run the seed (idempotent) |
+| `npm run db:studio` | Browse the database in Prisma Studio |
 
-## Learn More
+## Project layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+prisma/            schema, migrations, seed (default foods)
+src/app/           routes: / (today), /log, /history (progress), /settings (plan), /onboarding
+src/components/    UI: dashboard, log, progress, sheets, theme
+src/lib/actions.ts every database read and write (Server Actions)
+src/lib/nutrition.ts  BMR / TDEE / target math
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The app is single-user for now: every query is scoped to one user id (`src/lib/constants.ts`), so adding real accounts means swapping that id for the signed-in user's.
