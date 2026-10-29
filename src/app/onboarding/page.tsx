@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
+import { LogoLockup } from "@/components/logo";
 import { ProfileForm } from "@/components/profile-form";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Skeleton } from "@/components/ui";
@@ -20,7 +21,8 @@ const HERO = [
 export default function OnboardingPage() {
   return (
     <div className="pb-4">
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between">
+        <LogoLockup />
         <ThemeToggle />
       </div>
 
