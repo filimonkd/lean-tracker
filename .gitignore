@@ -34,9 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
-# local SQLite database
-/prisma/*.db
-/prisma/*.db-journal
+# old local SQLite files (the app now uses Postgres)
+*.db
+*.db-journal
 
 # vercel
 .vercel

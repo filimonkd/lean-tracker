@@ -296,8 +296,8 @@ export async function searchFoods(query: string, limit = 25): Promise<Food[]> {
   const take = int(limit, "Limit", 1, 100);
 
   const items = await prisma.foodItem.findMany({
-    // SQLite's LIKE (used by `contains`) is case-insensitive for ASCII.
-    where: { AND: [visibleFoods(user.id), q ? { name: { contains: q } } : {}] },
+    // Postgres matching is case-sensitive unless asked (ILIKE under the hood).
+    where: { AND: [visibleFoods(user.id), q ? { name: { contains: q, mode: "insensitive" } } : {}] },
     orderBy: { name: "asc" },
     take: q ? take * 2 : take, // over-fetch so re-ranking still fills the page
   });

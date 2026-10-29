@@ -1,4 +1,4 @@
-// Lean Tracker (calories & macros) — Prisma schema (SQLite)
+// Lean Tracker (calories & macros) — Prisma schema (PostgreSQL / Supabase)
 //
 // Date convention: every `date` column stores a *calendar day* as UTC midnight
 // (e.g. 2026-10-29T00:00:00.000Z). The client sends its local "YYYY-MM-DD" and
@@ -8,9 +8,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Supabase gives two connection strings:
+// - DATABASE_URL: the pooled "transaction" connection (port 6543) the app uses
+//   at runtime, so serverless functions don't exhaust Postgres connections.
+// - DIRECT_URL: the direct connection (port 5432) that migrations need.
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum MealType {
